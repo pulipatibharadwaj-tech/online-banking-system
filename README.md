@@ -5,7 +5,7 @@ A full-stack online banking web application built with React, Node.js/Express, P
 ## Tech Stack
 - **Frontend**: React
 - **Backend**: Node.js with Express
-- **Database**: PostgreSQL
+- **Database**: SQL-Lite
 - **Python Services**: Notification & Reporting services (Flask)
 
 ## User Stories Implemented
