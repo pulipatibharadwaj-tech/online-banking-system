@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprint 2 Burn Down Chart - GD Bank</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f7fa; color: #333; padding: 2rem; }
+  h1 { color: #0066cc; margin-bottom: 0.3rem; }
+  .subtitle { color: #777; margin-bottom: 2rem; font-size: 0.95rem; }
+  .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+  .card { background: white; border-radius: 10px; padding: 1.2rem; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .card .value { font-size: 1.8rem; font-weight: 700; color: #0066cc; }
+  .card .label { font-size: 0.85rem; color: #777; margin-top: 0.2rem; }
+  .chart-container { background: white; border-radius: 10px; padding: 2rem; box-shadow: 0 1px 4px rgba(0,0,0,0.08); margin-bottom: 2rem; }
+  .chart-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; }
+  canvas { width: 100% !important; }
+  .stories { background: white; border-radius: 10px; padding: 1.5rem; box-shadow: 0 1px 4px rgba(0,0,0,0.08); margin-bottom: 2rem; }
+  .stories h2 { font-size: 1.1rem; margin-bottom: 1rem; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 0.6rem 0.8rem; text-align: left; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+  th { background: #f8f9fa; font-weight: 600; color: #555; }
+  .badge { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 10px; font-size: 0.75rem; font-weight: 600; }
+  .badge-done { background: #d4edda; color: #155724; }
+  .badge-progress { background: #fff3cd; color: #856404; }
+  .badge-todo { background: #d1ecf1; color: #0c5460; }
+  .badge-high { background: #f8d7da; color: #721c24; }
+  .badge-medium { background: #fff3cd; color: #856404; }
+</style>
+</head>
+<body>
+
+<h1>Sprint 2 - Burn Down Chart</h1>
+<p class="subtitle">GD Bank Web Application | Sprint Duration: 2 Weeks | Total Story Points: 19</p>
+
+<div class="summary">
+  <div class="card"><div class="value">19</div><div class="label">Total Story Points</div></div>
+  <div class="card"><div class="value">19</div><div class="label">Points Completed</div></div>
+  <div class="card"><div class="value">5/5</div><div class="label">Stories Completed</div></div>
+  <div class="card"><div class="value">100%</div><div class="label">Sprint Completion</div></div>
+</div>
+
+<div class="chart-container">
+  <div class="chart-title">Story Points Remaining Over Time</div>
+  <canvas id="burndown" height="300"></canvas>
+</div>
+
+<div class="chart-container">
+  <div class="chart-title">Stories Completed Per Day</div>
+  <canvas id="velocity" height="250"></canvas>
+</div>
+
+<div class="stories">
+  <h2>Sprint 2 User Stories</h2>
+  <table>
+    <thead>
+      <tr><th>ID</th><th>Story</th><th>Role</th><th>Points</th><th>Status</th><th>Code Location</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>US-17</td>
+        <td>Change Password</td>
+        <td>Backend</td>
+        <td>3</td>
+        <td><span class="badge badge-done">Done</span></td>
+        <td>backend/src/routes/auth.js:98</td>
+      </tr>
+      <tr>
+        <td>US-07</td>
+        <td>View Recent Transactions</td>
+        <td>Full Stack</td>
+        <td>5</td>
+        <td><span class="badge badge-done">Done</span></td>
+        <td>backend/src/routes/transfers.js + frontend/src/pages/Dashboard.js</td>
+      </tr>
+      <tr>
+        <td>US-11</td>
+        <td>Add Beneficiary</td>
+        <td>Backend</td>
+        <td>3</td>
+        <td><span class="badge badge-done">Done</span></td>
+        <td>backend/src/routes/beneficiaries.js:25</td>
+      </tr>
+      <tr>
+        <td>US-12</td>
+        <td>Edit Beneficiary</td>
+        <td>Backend</td>
+        <td>3</td>
+        <td><span class="badge badge-done">Done</span></td>
+        <td>backend/src/routes/beneficiaries.js:41</td>
+      </tr>
+      <tr>
+        <td>US-13</td>
+        <td>Delete Beneficiary</td>
+        <td>Backend</td>
+        <td>3</td>
+        <td><span class="badge badge-done">Done</span></td>
+        <td>backend/src/routes/beneficiaries.js:59</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="stories">
+  <h2>Sprint 2 Velocity Summary</h2>
+  <table>
+    <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td>Planned Story Points</td><td>19</td></tr>
+      <tr><td>Completed Story Points</td><td>19</td></tr>
+      <tr><td>Sprint Velocity</td><td>19 points / sprint</td></tr>
+      <tr><td>Average Points / Day</td><td>1.9 points/day</td></tr>
+      <tr><td>Stories Planned</td><td>5</td></tr>
+      <tr><td>Stories Completed</td><td>5</td></tr>
+      <tr><td>Sprint Completion Rate</td><td>100%</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+// Burn down chart
+const burndownCanvas = document.getElementById('burndown');
+const bdCtx = burndownCanvas.getContext('2d');
+const totalPoints = 19;
+const days = ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7', 'Day 8', 'Day 9', 'Day 10'];
+const idealLine = [19, 16.9, 14.8, 12.7, 10.6, 8.5, 6.3, 4.2, 2.1, 0];
+const actualLine = [19, 19, 16, 11, 11, 8, 5, 2, 2, 0];
+
+function drawBurnDown() {
+  const W = burndownCanvas.width = burndownCanvas.parentElement.clientWidth - 64;
+  const H = burndownCanvas.height = 300;
+  const padL = 50, padR = 20, padT = 20, padB = 40;
+  const cW = W - padL - padR;
+  const cH = H - padT - padB;
+
+  bdCtx.clearRect(0, 0, W, H);
+
+  // Grid
+  bdCtx.strokeStyle = '#eee';
+  bdCtx.lineWidth = 1;
+  for (let i = 0; i <= 4; i++) {
+    const y = padT + (cH / 4) * i;
+    bdCtx.beginPath(); bdCtx.moveTo(padL, y); bdCtx.lineTo(W - padR, y); bdCtx.stroke();
+    bdCtx.fillStyle = '#999'; bdCtx.font = '12px sans-serif';
+    bdCtx.fillText(Math.round(totalPoints - (totalPoints / 4) * i), 10, y + 4);
+  }
+
+  // X labels
+  days.forEach((d, i) => {
+    const x = padL + (cW / (days.length - 1)) * i;
+    bdCtx.fillStyle = '#999'; bdCtx.font = '11px sans-serif';
+    bdCtx.fillText(d, x - 15, H - 10);
+  });
+
+  function drawLine(data, color, width) {
+    bdCtx.strokeStyle = color; bdCtx.lineWidth = width; bdCtx.beginPath();
+    data.forEach((v, i) => {
+      const x = padL + (cW / (data.length - 1)) * i;
+      const y = padT + (cH * (1 - v / totalPoints));
+      i === 0 ? bdCtx.moveTo(x, y) : bdCtx.lineTo(x, y);
+    });
+    bdCtx.stroke();
+  }
+
+  drawLine(idealLine, '#ccc', 2);
+  drawLine(actualLine, '#0066cc', 3);
+
+  // Dots
+  actualLine.forEach((v, i) => {
+    const x = padL + (cW / (actualLine.length - 1)) * i;
+    const y = padT + (cH * (1 - v / totalPoints));
+    bdCtx.beginPath(); bdCtx.arc(x, y, 4, 0, Math.PI * 2);
+    bdCtx.fillStyle = '#0066cc'; bdCtx.fill();
+    bdCtx.strokeStyle = 'white'; bdCtx.lineWidth = 2; bdCtx.stroke();
+  });
+
+  // Legend
+  bdCtx.fillStyle = '#0066cc'; bdCtx.fillRect(padL, padT - 10, 15, 3);
+  bdCtx.fillStyle = '#333'; bdCtx.font = '12px sans-serif'; bdCtx.fillText('Actual', padL + 20, padT - 6);
+  bdCtx.fillStyle = '#ccc'; bdCtx.fillRect(padL + 80, padT - 10, 15, 3);
+  bdCtx.fillStyle = '#333'; bdCtx.fillText('Ideal', padL + 100, padT - 6);
+}
+
+// Velocity chart
+const velocityCanvas = document.getElementById('velocity');
+const vCtx = velocityCanvas.getContext('2d');
+const completedPerDay = [0, 0, 3, 5, 0, 3, 3, 3, 0, 2];
+
+function drawVelocity() {
+  const W = velocityCanvas.width = velocityCanvas.parentElement.clientWidth - 64;
+  const H = velocityCanvas.height = 250;
+  const padL = 50, padR = 20, padT = 20, padB = 40;
+  const cW = W - padL - padR;
+  const cH = H - padT - padB;
+  const maxVal = Math.max(...completedPerDay) + 1;
+
+  vCtx.clearRect(0, 0, W, H);
+
+  // Grid
+  vCtx.strokeStyle = '#eee'; vCtx.lineWidth = 1;
+  for (let i = 0; i <= 4; i++) {
+    const y = padT + (cH / 4) * i;
+    vCtx.beginPath(); vCtx.moveTo(padL, y); vCtx.lineTo(W - padR, y); vCtx.stroke();
+    vCtx.fillStyle = '#999'; vCtx.font = '12px sans-serif';
+    vCtx.fillText(Math.round(maxVal - (maxVal / 4) * i), 15, y + 4);
+  }
+
+  const barW = cW / days.length * 0.6;
+  completedPerDay.forEach((v, i) => {
+    const x = padL + (cW / days.length) * i + (cW / days.length * 0.2);
+    const h = (v / maxVal) * cH;
+    vCtx.fillStyle = v > 0 ? '#0066cc' : '#e0e0e0';
+    vCtx.fillRect(x, padT + cH - h, barW, h);
+    vCtx.fillStyle = '#999'; vCtx.font = '11px sans-serif';
+    vCtx.fillText(days[i], x - 5, H - 10);
+    if (v > 0) {
+      vCtx.fillStyle = '#333'; vCtx.font = 'bold 12px sans-serif';
+      vCtx.fillText(v, x + barW / 2 - 5, padT + cH - h - 5);
+    }
+  });
+}
+
+drawBurnDown();
+drawVelocity();
+window.addEventListener('resize', () => { drawBurnDown(); drawVelocity(); });
+</script>
+</body>
+</html>
