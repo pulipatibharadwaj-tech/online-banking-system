@@ -36,7 +36,7 @@ A full-stack online banking web application built with React, Node.js/Express, P
 
 ### Prerequisites
 - Node.js (v18+)
-- PostgreSQL
+- SQL=Lite
 - Python 3.8+
 
 ### Database
@@ -77,6 +77,6 @@ python report_service.py         # port 5002
 GD-Bank/
 ├── backend/          Node.js/Express API
 ├── frontend/         React application
-├── database/         PostgreSQL schema
+├── database/         SQL-lite schema
 └── python-services/  Flask notification & report services
 ```
