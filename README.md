@@ -36,7 +36,7 @@ A full-stack online banking web application built with React, Node.js/Express, P
 
 ### Prerequisites
 - Node.js (v18+)
-- SQL=Lite
+- SQL lite
 - Python 3.8+
 
 ### Database
